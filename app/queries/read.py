@@ -56,3 +56,11 @@ def get_griefers(session: Session):
 
 def find_player_by_nickname(session: Session, nickname: str):
     return session.query(Player).filter(Player.nickname == nickname).first()
+
+
+def find_resource_by_name(session: Session, name: str):
+    return session.query(Resource).filter(Resource.name == name).first()
+
+
+def get_all_resources(session: Session):
+    return session.query(Resource).all()
