@@ -6,7 +6,7 @@ from app.components.DepositSelect import DepositView
 from app.components.Leaderboard import LeaderBoardView
 from app.db import engine, Base, SessionLocal
 from app.helpers.create_leaderboard_embed import create_griefers_leaderboard_embed
-from app.queries.create import add_resource
+from app.queries.create import add_resource, find_or_add_resource
 from app.queries.delete import delete_resource
 from app.queries.read import find_player_by_nickname, get_griefers
 
@@ -33,7 +33,7 @@ async def add_resource_command(ctx, name: str):
         await ctx.respond("You do not have permission to use this command.", ephemeral=True)
         return
     session = SessionLocal()
-    add_resource(session, name)
+    find_or_add_resource(session, name)
     await ctx.respond(f"Resource {name} added")
 
 

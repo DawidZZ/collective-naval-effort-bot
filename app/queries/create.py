@@ -17,6 +17,13 @@ def add_resource(session: Session, name: str):
     return resource
 
 
+def find_or_add_resource(session: Session, name: str):
+    resource = session.query(Resource).filter(Resource.name == name).first()
+    if resource is None:
+        resource = add_resource(session, name)
+    return resource
+
+
 def add_deposit(session: Session, player_id: int, resource_id: int, amount: int):
     deposit = Deposit(player_id=player_id,
                       resource_id=resource_id, amount=amount)
