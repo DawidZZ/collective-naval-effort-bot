@@ -12,6 +12,7 @@ def get_leaderboard(session: Session, resource_name: str, limit: int = 10):
         .join(Deposit, Player.id == Deposit.player_id)
         .join(Resource, Deposit.resource_id == Resource.id)
         .filter(Resource.name == resource_name)
+        .filter(Deposit.amount > 0)
         .group_by(Player.id, Player.nickname)
         .order_by(desc('total_deposit'))
         .limit(limit)
