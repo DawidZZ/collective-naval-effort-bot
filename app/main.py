@@ -57,8 +57,11 @@ async def delete_resource_command(ctx, name: str):
 
 
 @bot.slash_command(name="leaderboard")
-async def leaderboard_command(ctx):
-    leaderboard = LeaderBoardView()
+async def leaderboard_command(ctx, limit: int):
+    if limit < 1 or limit > 100:
+        await ctx.respond("Limit must be between 1 and 100", ephemeral=True)
+        return
+    leaderboard = LeaderBoardView(limit)
     await ctx.respond("Select resource", view=leaderboard)
 
 
